@@ -5,10 +5,12 @@ import { api } from "../api/app";
 import { Modal } from "../components/Modal";
 import { Form } from "../components/Form";
 import { Cliente } from "../interfaces/Client";
+import { FormEdit } from "../components/Editar/Form";
 
 export const Home = () => {
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [cliente, setCliente] = useState<Cliente[]>([]);
+    const [openModalEdit, setOpenModalEdit] = useState<boolean>(false);
 
     useEffect(() => {
         const getDadosClientes = async () => {
@@ -56,7 +58,7 @@ export const Home = () => {
                                         </div>
                                     </div>
                                     <div className="box-buttons">
-                                        <button className="editar">
+                                        <button className="editar" onClick={() => setOpenModalEdit(true)}>
                                             <NotePencil size={22} />
                                             Editar
                                         </button>
@@ -77,6 +79,12 @@ export const Home = () => {
                         title="Cadastrar cliente" 
                         onClose={() => setOpenModal(false)} 
                         children=<Form/>
+                    />
+                    <Modal
+                        isOpen={openModalEdit}
+                        title="Editar cliente"
+                        onClose={() => setOpenModalEdit(false)}
+                        children=<FormEdit/>
                     />
                 </main>
             </div>

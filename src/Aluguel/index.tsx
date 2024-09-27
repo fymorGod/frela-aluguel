@@ -5,9 +5,11 @@ import { Modal } from "../components/Modal";
 import { FormAluguel } from "../components/Form-Aluguel";
 import { api } from "../api/app";
 import { Rental } from "../interfaces/Aluguel";
+import { FormAluguelEdit } from "../components/Editar/Form-Aluguel";
 
 export const Aluguel = () => {
     const [openModal, setOpenModal] = useState<boolean>(false);
+    const [openModalEdit, setOpenModalEdit] = useState<boolean>(false);
     const [aluguel, setAluguel] = useState<Rental[]>([]);
 
     useEffect(() => {
@@ -55,7 +57,7 @@ export const Aluguel = () => {
                                             </div>
                                         </div>
                                         <div className="box-buttons">
-                                            <button className="editar">
+                                            <button className="editar" onClick={() => setOpenModalEdit(true)}>
                                                 <NotePencil size={22} />
                                                 Editar
                                             </button>
@@ -76,6 +78,12 @@ export const Aluguel = () => {
                         title="Cadastrar aluguel"
                         onClose={() => setOpenModal(false)}
                         children=<FormAluguel/>
+                    />
+                    <Modal
+                        isOpen={openModalEdit}
+                        title="Editar aluguel"
+                        onClose={() => setOpenModalEdit(false)}
+                        children=<FormAluguelEdit/>
                     />
                 </main>
             </div>

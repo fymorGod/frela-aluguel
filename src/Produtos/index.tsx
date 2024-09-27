@@ -5,10 +5,12 @@ import { FormProduto } from "../components/FormProduto";
 import { useEffect, useState } from "react";
 import { api } from "../api/app";
 import { Product } from "../interfaces/Produto";
+import { FormProdutoEdit } from "../components/Editar/FormProduto";
 
 export const Produtos = () => {
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [produto, setProduto] = useState<Product[]>([]);
+    const [openModalEdit, setOpenModalEdit] = useState<boolean>(false);
 
     useEffect(() => {
         const getDadosProdutos = async () => {
@@ -59,7 +61,7 @@ export const Produtos = () => {
                                    
                                 </div>
                                 <div className="box-buttons">
-                                    <button className="editar">
+                                    <button className="editar" onClick={() => setOpenModalEdit(true)}>
                                         <NotePencil size={22} />
                                         Editar
                                     </button>
@@ -82,6 +84,12 @@ export const Produtos = () => {
                     onClose={() => setOpenModal(false)} 
                     children=<FormProduto/>
                 />
+                 <Modal
+                        isOpen={openModalEdit}
+                        title="Editar produto"
+                        onClose={() => setOpenModalEdit(false)}
+                        children=<FormProdutoEdit/>
+                    />
             </main>
         </div>
     </>
